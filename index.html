@@ -27,6 +27,7 @@
         overflow: hidden;
         top: 0;
         left: 0;
+        z-index: 0;
     }
 
     .brillo {
@@ -35,8 +36,9 @@
         height: 4px;
         background: gold;
         border-radius: 50%;
-        opacity: 0.8;
+        opacity: 0.7;
         animation: flotar 6s infinite linear;
+        filter: blur(1px);
     }
 
     @keyframes flotar {
@@ -45,7 +47,9 @@
     }
 
     .contenedor {
-        padding-top: 60px;
+        padding-top: 70px;
+        position: relative;
+        z-index: 2;
         animation: fadeIn 2.5s ease forwards;
     }
 
@@ -58,10 +62,10 @@
     }
 
     .foto {
-        width: 280px;
-        height: 380px;
+        width: 300px;
+        height: 400px;
         background: #07142a;
-        border: 2px solid #bfa76f;
+        border: 2px solid #d5c59c;
         outline: 4px solid rgba(255, 215, 0, 0.3);
         border-radius: 18px;
         margin: auto;
@@ -77,12 +81,12 @@
     }
 
     .boton {
-        margin-top: 40px;
+        margin-top: 45px;
         display: inline-block;
-        padding: 15px 45px;
+        padding: 18px 50px;
         background: linear-gradient(90deg, #1f335c, #2e4e88);
         color: #f9f9f9;
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         border-radius: 40px;
         text-decoration: none;
         letter-spacing: 1px;
@@ -100,6 +104,34 @@
         from { opacity: 0; transform: translateY(25px); }
         to { opacity: 1; transform: translateY(0); }
     }
+
+    /* ✨ RESPONSIVE MÓVIL */
+    @media (max-width: 600px) {
+
+        h1 {
+            font-size: 2.3rem;
+            letter-spacing: 2px;
+            padding: 0 20px;
+            line-height: 2.6rem;
+        }
+
+        .contenedor {
+            padding-top: 50px;
+        }
+
+        .foto {
+            width: 80%;
+            max-width: 320px;
+            height: 420px;
+        }
+
+        .boton {
+            margin-top: 35px;
+            font-size: 1.3rem;
+            padding: 15px 40px;
+        }
+    }
+
 </style>
 </head>
 
@@ -121,11 +153,11 @@
     // Generador de brillos dorados
     const brillos = document.getElementById("brillos");
 
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 45; i++) {
         let b = document.createElement("div");
         b.classList.add("brillo");
         b.style.left = Math.random() * 100 + "%";
-        b.style.animationDuration = (4 + Math.random() * 6) + "s";
+        b.style.animationDuration = (5 + Math.random() * 6) + "s";
         b.style.opacity = Math.random();
         brillos.appendChild(b);
     }
@@ -133,3 +165,4 @@
 
 </body>
 </html>
+
