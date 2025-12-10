@@ -16,33 +16,52 @@
         overflow-x: hidden;
     }
 
-    /* PARTÍCULAS */
+    /* TRUCO PARA ACTIVAR AUDIO AUTOMÁTICO */
+    #audioHack {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        position: absolute;
+        animation: hackAnim 0.4s infinite;
+    }
+    @keyframes hackAnim {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.0001); }
+    }
+
+    /* PARTÍCULAS GLITTER */
     .particula {
         position: fixed;
-        background: rgba(255, 215, 140, 0.25);
+        background: radial-gradient(circle, rgba(255,215,140,0.9), rgba(255,215,140,0));
         border-radius: 50%;
         pointer-events: none;
         animation: flotar 7s linear infinite;
+        filter: blur(1px);
     }
-
     @keyframes flotar {
-        from { transform: translateY(0); opacity: 0.9; }
+        from { transform: translateY(0); opacity: 1; }
         to { transform: translateY(-120vh); opacity: 0; }
     }
 
     /* TÍTULO */
     header h1 {
-        font-size: 2.7rem;
+        font-size: 2.9rem;
         margin-top: 25px;
         color: #f5e8c8;
-        text-shadow: 0 0 14px rgba(0, 0, 0, .7);
+        text-shadow: 0 0 18px rgba(255, 230, 180, .4);
         letter-spacing: 3px;
+        animation: glow 3s ease-in-out infinite alternate;
     }
 
-    /* FOTO PRINCIPAL — AJUSTE DEL BANNER */
+    @keyframes glow {
+        from { text-shadow: 0 0 12px rgba(255, 210, 140, .3); }
+        to { text-shadow: 0 0 22px rgba(255, 215, 140, .7); }
+    }
+
+    /* FOTO PRINCIPAL */
     .foto-xv {
         width: 100%;
-        height: 55vh;
+        height: 58vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -56,7 +75,13 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
-        filter: brightness(0.85);
+        filter: brightness(0.88) saturate(1.12);
+        transition: .6s;
+    }
+
+    .foto-xv img:hover {
+        transform: scale(1.03);
+        filter: brightness(1);
     }
 
     /* SECCIONES */
@@ -67,7 +92,7 @@
         width: 85%;
         border-radius: 18px;
         border: 1px solid rgba(255, 215, 140, 0.25);
-        box-shadow: 0 0 25px rgba(0,0,0,0.40);
+        box-shadow: 0 0 25px rgba(0,0,0,0.45);
         backdrop-filter: blur(5px);
         animation: fadeIn 2s ease forwards;
     }
@@ -82,8 +107,16 @@
     p {
         font-size: 1.25rem;
         color: #e4edff;
+        line-height: 1.6rem;
     }
 
+    .imgdivs {
+        width: 42px;
+        margin-bottom: -8px;
+        filter: drop-shadow(0 0 4px rgba(255,215,140,0.7));
+    }
+
+    /* BOTÓN */
     .boton {
         background: linear-gradient(90deg, #1f335c, #314f89);
         padding: 14px 27px;
@@ -96,23 +129,16 @@
         display: inline-block;
         box-shadow: 0 0 18px rgba(0,0,0,0.55);
     }
-
     .boton:hover {
         transform: scale(1.06);
         box-shadow: 0 0 25px rgba(255, 215, 140, 0.45);
-    }
-
-    .imgdivs {
-        width: 42px;
-        margin-bottom: -8px;
-        filter: drop-shadow(0 0 4px rgba(255,215,140,0.7));
     }
 
     /* ANIMACIÓN FADE */
     .fade-up {
         opacity: 0;
         transform: translateY(40px);
-        filter: blur(8px);
+        filter: blur(7px);
         transition: 1s ease;
     }
     .visible {
@@ -121,37 +147,39 @@
         filter: blur(0);
     }
 
-    /* RESPONSIVE REAL */
+    /* RESPONSIVE */
     @media (max-width: 650px) {
-        header h1 { font-size: 1.9rem; }
+        header h1 { font-size: 2rem; }
         .foto-xv { height: 40vh; }
-        .seccion { width: 92%; padding: 25px 15px; }
-        p { font-size: 1.1rem; }
+        p { font-size: 1.05rem; line-height: 1.45rem; }
         h2 { font-size: 1.6rem; }
+        .seccion { width: 92%; padding: 25px 15px; }
     }
 </style>
 </head>
 <body>
 
-<!-- MÚSICA AUTOMÁTICA (sin botón) -->
+<div id="audioHack"></div>
+
+<!-- MÚSICA AUTOMÁTICA -->
 <audio id="music" autoplay loop>
     <source src="Taylor Swift - Wildest Dreams (Taylor’s Version) (Official Audio) - Taylor Swift.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PARTÍCULAS -->
+<!-- PARTICULAS -->
 <script>
 function crearParticula() {
     const p = document.createElement("div");
-    const size = Math.random() * 10 + 5;
+    const size = Math.random() * 8 + 4;
     p.classList.add("particula");
     p.style.width = size + "px";
     p.style.height = size + "px";
     p.style.left = Math.random() * window.innerWidth + "px";
-    p.style.bottom = "-30px";
+    p.style.bottom = "-20px";
     document.body.appendChild(p);
     setTimeout(() => p.remove(), 7000);
 }
-setInterval(crearParticula, 250);
+setInterval(crearParticula, 200);
 </script>
 
 <!-- TÍTULO -->
@@ -164,31 +192,27 @@ setInterval(crearParticula, 250);
    <img src="icons/icon_ana_paola.jpg" alt="banner">
 </div>
 
-<!-- TEXTO PRINCIPAL -->
+<!-- TEXTO -->
 <div class="seccion fade-up">
     <p>El tiempo es el regalo más preciado. Cada uno de mis 15 años ha sido una joya, tallada con risas, lecciones y amor. Hoy, con el corazón lleno de gratitud, me detengo a contemplar este hermoso tesoro antes de seguir mi camino.</p><br>
     <p>Hoy, mis papás: Ana Saraí Azúa Ezquivel y Gerardo Nieto Pulido. Te esperamos con gran cariño para que seas parte de la celebración que da inicio a este nuevo capítulo.</p>
 </div>
 
-<!-- FECHA -->
 <div class="seccion fade-up">
     <h2><img src="icons/fecha.png" class="imgdivs"> Fecha</h2>
     <p>Sábado 20 de Diciembre de 2025</p>
 </div>
 
-<!-- CEREMONIA -->
 <div class="seccion fade-up">
     <h2><img src="icons/iglesia.png" class="imgdivs"> Ceremonia</h2>
     <p>1:30 PM • Iglesia La Hermosa Pentecostés</p>
 </div>
 
-<!-- RECEPCIÓN -->
 <div class="seccion fade-up">
     <h2><img src="icons/ubicación.png" class="imgdivs"> Recepción</h2>
     <p>3:00 PM • Casa de mis Abuelos - Luis Azua</p>
 </div>
 
-<!-- MAPA -->
 <div class="seccion fade-up">
     <a href="https://maps.app.goo.gl/JowZDLWnUvBGe5SS6" target="_blank" class="boton">¿Cómo llegar?</a>
 </div>
@@ -202,11 +226,14 @@ document.querySelectorAll(".fade-up").forEach(el => {
     obs.observe(el);
 });
 
-/* MÚSICA AUTOMÁTICA — fallback para móviles */
+/* MÚSICA AUTOMÁTICA REAL (con fallback + hack) */
 const music = document.getElementById("music");
-music.play().catch(() => {
-    document.body.addEventListener("click", () => music.play(), { once: true });
-});
+
+let intentarPlay = setInterval(() => {
+    music.play()
+    .then(() => { clearInterval(intentarPlay); })
+    .catch(() => {});
+}, 200);
 </script>
 
 </body>
