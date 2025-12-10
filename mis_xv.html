@@ -54,9 +54,8 @@
     .foto-xv img {
         width: 100%;
         height: 100%;
-        object-fit: cover;      /* que se vea completo y bonito */
+        object-fit: cover;
         object-position: center;
-        border-bottom: 2px solid rgba(255, 215, 140, 0.25);
         filter: brightness(0.85);
     }
 
@@ -122,28 +121,6 @@
         filter: blur(0);
     }
 
-    /* BOTÓN MÚSICA */
-    #btnMusic {
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        background: rgba(15, 25, 55, 0.85);
-        border: 2px solid rgba(255, 215, 140, 0.4);
-        color: #f9f9f9;
-        padding: 15px;
-        border-radius: 50%;
-        font-size: 22px;
-        cursor: pointer;
-        box-shadow: 0 0 20px rgba(0,0,0,.6);
-        transition: 0.25s;
-        z-index: 99;
-    }
-
-    #btnMusic:hover {
-        transform: scale(1.15);
-        box-shadow: 0 0 25px rgba(255,215,140,.45);
-    }
-
     /* RESPONSIVE REAL */
     @media (max-width: 650px) {
         header h1 { font-size: 1.9rem; }
@@ -151,23 +128,15 @@
         .seccion { width: 92%; padding: 25px 15px; }
         p { font-size: 1.1rem; }
         h2 { font-size: 1.6rem; }
-        #btnMusic {
-            bottom: 15px;
-            right: 15px;
-            font-size: 20px;
-            padding: 12px;
-        }
     }
 </style>
 </head>
 <body>
 
-<!-- MÚSICA -->
+<!-- MÚSICA AUTOMÁTICA (sin botón) -->
 <audio id="music" autoplay loop>
     <source src="Taylor Swift - Wildest Dreams (Taylor’s Version) (Official Audio) - Taylor Swift.mp3" type="audio/mpeg">
 </audio>
-
-<button id="btnMusic">⏸</button>
 
 <!-- PARTÍCULAS -->
 <script>
@@ -197,8 +166,8 @@ setInterval(crearParticula, 250);
 
 <!-- TEXTO PRINCIPAL -->
 <div class="seccion fade-up">
-    <p>El tiempo es el regalo más preciado... Hoy inicia un nuevo capítulo.</p><br>
-    <p>Mis padres, Ana Saraí Azúa Ezquivel y Gerardo Nieto Pulido, te esperamos con cariño para celebrar este momento tan especial.</p>
+    <p>El tiempo es el regalo más preciado. Cada uno de mis 15 años ha sido una joya, tallada con risas, lecciones y amor. Hoy, con el corazón lleno de gratitud, me detengo a contemplar este hermoso tesoro antes de seguir mi camino.</p><br>
+    <p>Hoy, mis papás: Ana Saraí Azúa Ezquivel y Gerardo Nieto Pulido. Te esperamos con gran cariño para que seas parte de la celebración que da inicio a este nuevo capítulo.</p>
 </div>
 
 <!-- FECHA -->
@@ -216,7 +185,7 @@ setInterval(crearParticula, 250);
 <!-- RECEPCIÓN -->
 <div class="seccion fade-up">
     <h2><img src="icons/ubicación.png" class="imgdivs"> Recepción</h2>
-    <p>3:00 PM • Casa de mis Abuelos</p>
+    <p>3:00 PM • Casa de mis Abuelos - Luis Azua</p>
 </div>
 
 <!-- MAPA -->
@@ -233,29 +202,17 @@ document.querySelectorAll(".fade-up").forEach(el => {
     obs.observe(el);
 });
 
-/* MÚSICA */
+/* MÚSICA AUTOMÁTICA — fallback para móviles */
 const music = document.getElementById("music");
-const btnMusic = document.getElementById("btnMusic");
-let sonando = true;
-
 music.play().catch(() => {
     document.body.addEventListener("click", () => music.play(), { once: true });
 });
-
-btnMusic.onclick = () => {
-    if (sonando) {
-        music.pause();
-        btnMusic.innerHTML = "🎵";
-    } else {
-        music.play();
-        btnMusic.innerHTML = "⏸";
-    }
-    sonando = !sonando;
-};
 </script>
 
 </body>
 </html>
+
+
 
 
 
