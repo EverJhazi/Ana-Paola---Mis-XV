@@ -16,7 +16,7 @@
         overflow-x: hidden;
     }
 
-    /* PARTÍCULAS DORADAS */
+    /* PARTÍCULAS */
     .particula {
         position: fixed;
         background: rgba(255, 215, 140, 0.25);
@@ -30,7 +30,7 @@
         to { transform: translateY(-120vh); opacity: 0; }
     }
 
-    /* ENCABEZADO */
+    /* TÍTULO */
     header h1 {
         font-size: 2.7rem;
         margin-top: 25px;
@@ -39,22 +39,28 @@
         letter-spacing: 3px;
     }
 
-    /* FOTO PRINCIPAL */
+    /* FOTO PRINCIPAL — AJUSTE DEL BANNER */
     .foto-xv {
         width: 100%;
-        height: 50vh;
-        background: #09172c;
-        border-bottom: 2px solid rgba(255, 215, 140, 0.3);
+        height: 55vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #c9d9ff;
-        font-size: 1.3rem;
-        letter-spacing: 2px;
-        text-shadow: 0 0 12px #000;
+        overflow: hidden;
+        border-bottom: 2px solid rgba(255, 215, 140, 0.3);
+        background: #09172c;
     }
 
-    /* SECCIONES PREMIUM */
+    .foto-xv img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;      /* que se vea completo y bonito */
+        object-position: center;
+        border-bottom: 2px solid rgba(255, 215, 140, 0.25);
+        filter: brightness(0.85);
+    }
+
+    /* SECCIONES */
     .seccion {
         background: rgba(10, 18, 35, 0.55);
         margin: 28px auto;
@@ -87,7 +93,7 @@
         color: #fff;
         font-size: 1.2rem;
         letter-spacing: 1px;
-        transition: 0.3s ease;
+        transition: .3s;
         display: inline-block;
         box-shadow: 0 0 18px rgba(0,0,0,0.55);
     }
@@ -116,7 +122,7 @@
         filter: blur(0);
     }
 
-    /* BOTÓN MUSICAL ELEGANTE */
+    /* BOTÓN MÚSICA */
     #btnMusic {
         position: fixed;
         bottom: 25px;
@@ -124,12 +130,13 @@
         background: rgba(15, 25, 55, 0.85);
         border: 2px solid rgba(255, 215, 140, 0.4);
         color: #f9f9f9;
-        padding: 15px 18px;
+        padding: 15px;
         border-radius: 50%;
         font-size: 22px;
         cursor: pointer;
         box-shadow: 0 0 20px rgba(0,0,0,.6);
         transition: 0.25s;
+        z-index: 99;
     }
 
     #btnMusic:hover {
@@ -137,27 +144,32 @@
         box-shadow: 0 0 25px rgba(255,215,140,.45);
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 620px) {
-        header h1 { font-size: 2rem; }
-        .foto-xv { height: 42vh; font-size: 1rem; }
-        h2 { font-size: 1.7rem; }
+    /* RESPONSIVE REAL */
+    @media (max-width: 650px) {
+        header h1 { font-size: 1.9rem; }
+        .foto-xv { height: 40vh; }
+        .seccion { width: 92%; padding: 25px 15px; }
         p { font-size: 1.1rem; }
-        .seccion { width: 92%; }
+        h2 { font-size: 1.6rem; }
+        #btnMusic {
+            bottom: 15px;
+            right: 15px;
+            font-size: 20px;
+            padding: 12px;
+        }
     }
 </style>
 </head>
 <body>
 
-<!-- MÚSICA AUTOMÁTICA -->
+<!-- MÚSICA -->
 <audio id="music" autoplay loop>
     <source src="Taylor Swift - Wildest Dreams (Taylor’s Version) (Official Audio) - Taylor Swift.mp3" type="audio/mpeg">
 </audio>
 
-<!-- BOTÓN MÚSICA -->
 <button id="btnMusic">⏸</button>
 
-<!-- PARTICULAS -->
+<!-- PARTÍCULAS -->
 <script>
 function crearParticula() {
     const p = document.createElement("div");
@@ -178,17 +190,17 @@ setInterval(crearParticula, 250);
     <h1>Ana Paola Nieto Azúa</h1>
 </header>
 
-<!-- FOTO O PORTADA -->
+<!-- FOTO PRINCIPAL -->
 <div class="foto-xv fade-up">
    <img src="icons/icon_ana_paola.jpg" alt="banner">
 </div>
-    <div class="seccion fade-up">
-     <p>El tiempo es el regalo más preciado. Cada uno de mis 15 años ha sido una joya, tallada con risas, lecciones y amor. 
-        Hoy, con el corazón lleno de gratitud, me detengo a contemplar este hermoso tesoro antes de seguir mi camino. </p> <br><br>
-<p>Hoy, mis papás:
-Ana Saraí Azúa Ezquivel y
-Gerardo Nieto Pulido. Te esperamos con gran cariño para que seas parte de la celebración que da inicio a este nuevo capítulo.</p>
-    </div>
+
+<!-- TEXTO PRINCIPAL -->
+<div class="seccion fade-up">
+    <p>El tiempo es el regalo más preciado... Hoy inicia un nuevo capítulo.</p><br>
+    <p>Mis padres, Ana Saraí Azúa Ezquivel y Gerardo Nieto Pulido, te esperamos con cariño para celebrar este momento tan especial.</p>
+</div>
+
 <!-- FECHA -->
 <div class="seccion fade-up">
     <h2><img src="icons/fecha.png" class="imgdivs"> Fecha</h2>
@@ -213,7 +225,7 @@ Gerardo Nieto Pulido. Te esperamos con gran cariño para que seas parte de la ce
 </div>
 
 <script>
-/* ANIMACIÓN FADE-UP */
+/* FADES */
 document.querySelectorAll(".fade-up").forEach(el => {
     const obs = new IntersectionObserver(e => {
         e.forEach(x => { if (x.isIntersecting) x.target.classList.add("visible"); });
@@ -221,7 +233,7 @@ document.querySelectorAll(".fade-up").forEach(el => {
     obs.observe(el);
 });
 
-/* CONTROL DE MÚSICA */
+/* MÚSICA */
 const music = document.getElementById("music");
 const btnMusic = document.getElementById("btnMusic");
 let sonando = true;
