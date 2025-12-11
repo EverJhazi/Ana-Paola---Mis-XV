@@ -163,7 +163,7 @@
 
 <!-- MÚSICA AUTOMÁTICA -->
 <audio id="music" autoplay loop>
-    <source src="Taylor Swift - Wildest Dreams (Taylor’s Version) (Official Audio) - Taylor Swift.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PARTICULAS -->
@@ -230,19 +230,11 @@ document.querySelectorAll(".fade-up").forEach(el => {
 const music = document.getElementById("music");
 
 let intentarPlay = setInterval(() => {
-    music.play()
-    .then(() => { clearInterval(intentarPlay); })
-    .catch(() => {});
+    music.play().then(() => {
+        clearInterval(intentarPlay);
+    }).catch(() => {});
 }, 200);
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
